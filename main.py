@@ -1,7 +1,7 @@
 from chat.recorder import Recorder
 from chat.conversation import Conversation
 from chat.message import Message
-from chat.openaiAPI import OpenaiAPIWrapper
+from api.openaiAPI import OpenaiAPIWrapper
 
 # can have access to each word in answer through chunk.choices[0].delta.content, compare to existing vocabulary
 
@@ -11,7 +11,7 @@ def main():
     stream = True
     # logit_bias={str(enc.encode("world")[0]): 5.0}
 
-    recorder = Recorder('messages.txt')
+    recorder = Recorder('chat/messages.txt')
     conversation = Conversation(system_message_content="You are a bot", recorder=recorder)
     openAPI = OpenaiAPIWrapper(conversation=conversation, model=model)
     # openAPI.create_chat_completion(messages=messages, stream=stream, max_tokens=max_tokens)

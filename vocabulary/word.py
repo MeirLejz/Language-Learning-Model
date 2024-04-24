@@ -1,4 +1,4 @@
-from chat.encoder import Encoder
+from api.encoder import Encoder
 
 class Word:
     def __init__(self, text: str, logit_bias: float = 5.0, encoder: Encoder = Encoder()):
