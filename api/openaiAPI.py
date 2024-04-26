@@ -5,6 +5,8 @@ from chat.conversation import Conversation
 from chat.message import Message
 from vocabulary.vocabulary import Vocabulary
 
+import numpy as np
+import pdb
 class OpenaiAPIWrapper():
     
     def __init__(self, conversation: Conversation, vocabulary: Vocabulary, model: str="gpt-3.5-turbo"):
@@ -16,6 +18,8 @@ class OpenaiAPIWrapper():
         
     def create_chat_completion(self, messages: list, stream: bool=True, max_tokens: int=50, logit_bias: dict=None) -> Message:
         
+        message_content = ""
+
         stream = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
@@ -24,18 +28,24 @@ class OpenaiAPIWrapper():
             logit_bias=logit_bias
         )
         
-        content = ""
         print("tsabar: ", end="")
+
         for chunk in stream:
-            token = chunk.choices[0].delta.content
-            if token is not None:
-                print(token, end="")
-                content += token
-                self.vocabulary.add_word(content)
+            token_content = chunk.choices[0].delta.content
+            if token_content is not None:
+                print(token_content, end="")
+                message_content += token_content
             else:
                 print("\n")
 
-        message = Message(role="assistant", content=content)
+        words = [word.strip("`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'") for word in message_content.split() if word.strip() not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'"]
+
+        if np.random.random() < 0.9:   
+            self.vocabulary.add_word(max(words, key=len))
+        else:
+            self.vocabulary.add_word(np.random.choice(words))
+
+        message = Message(role="assistant", content=message_content)
         self.conversation.add_message(message)
         
         return message

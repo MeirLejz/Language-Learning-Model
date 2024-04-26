@@ -1,0 +1,8 @@
+
+palabra : 5
+habitacion : 5
+interese : 5
+la : 5
+relacionadas : 5
+espanol : 5
+estructura : 5
