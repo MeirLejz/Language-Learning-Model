@@ -1,30 +1,29 @@
 from openai import OpenAI
-import tiktoken
 
-from chat.conversation import Conversation
-from chat.message import Message
-from vocabulary.vocabulary import Vocabulary
-
-import numpy as np
-import pdb
 class OpenaiAPIWrapper():
     
-    def __init__(self, conversation: Conversation, vocabulary: Vocabulary, model: str="gpt-3.5-turbo"):
+    def __init__(self):
         self.client = OpenAI()
-        self.model = model
-        self.encoding = tiktoken.encoding_for_model(self.model)
-        self.conversation = conversation
-        self.vocabulary = vocabulary
         
-    def create_chat_completion(self, messages: list, stream: bool=True, max_tokens: int=50, logit_bias: dict=None) -> Message:
+    def create_chat_completion(self, model: str, messages: list, max_tokens: int=200) -> str:
+        
+        completion = self.client.chat.completions.create(
+            model=model,
+            messages=messages,
+            max_tokens=max_tokens
+        )
+
+        return completion.choices[0].message.content
+
+    def stream_chat_completion(self, model: str, messages: list, max_tokens: int=50, logit_bias: dict=None) -> tuple[list, str]:
         
         message_content = ""
 
         stream = self.client.chat.completions.create(
-            model=self.model,
+            model=model,
             messages=messages,
             max_tokens=max_tokens,
-            stream=stream,
+            stream=True,
             logit_bias=logit_bias
         )
         
@@ -40,12 +39,5 @@ class OpenaiAPIWrapper():
 
         words = [word.strip("`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'") for word in message_content.split() if word.strip() not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'"]
 
-        if np.random.random() < 0.9:   
-            self.vocabulary.add_word(max(words, key=len))
-        else:
-            self.vocabulary.add_word(np.random.choice(words))
-
-        message = Message(role="assistant", content=message_content)
-        self.conversation.add_message(message)
+        return words, message_content
         
-        return message

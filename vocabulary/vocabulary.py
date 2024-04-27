@@ -1,33 +1,36 @@
 from vocabulary.word import Word
+from file_manager.vocab_file_manag import VocabularyFileManager
+
 from unidecode import unidecode
-import pdb
+
+import numpy as np
 
 class Vocabulary:
-    def __init__(self, file_path: str, reset: bool):
-        
-        self.vocabulary_path = file_path
-        
-        self.words = []
-        with open(self.vocabulary_path, "w" if reset else "r") as f:
-            if reset:
-                f.write("")
-            else:
-                for line in f:
-                    if line != "\n":
-                        word, bias = line.split(":")
-                        self.words.append(Word(text=word.strip(), logit_bias=int(bias)))
 
-    def add_word(self, text: str, initial_bias: int=5) -> None:
+    def __init__(self, file_manager: VocabularyFileManager, reset: bool=False):
         
+        self.file_manager = file_manager
+        self.words = []
+
+        if reset:
+            self.file_manager.reset_file()
+        else:
+            self.words = self.file_manager.load_object_list()
+
+    def add_word(self, message_content_list: list[str], initial_bias: int=5) -> None:
+
+        if np.random.random() < 0.9:   
+            text = max(message_content_list, key=len)
+        else:
+            text = np.random.choice(message_content_list)
+
         text = unidecode(text.lower().strip())
 
         if text not in [word.text for word in self.words] and text != "" and text not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|'":
             
-            self.words.append(Word(text, initial_bias))
-
-            with open(self.vocabulary_path, "a") as f:
-                f.write("\n")
-                f.write(text + ' : ' + str(initial_bias))
+            word = Word(text, initial_bias)
+            self.words.append(word)
+            self.file_manager.save_object(word)
 
     def to_readable_format(self) -> str:
         return '\n'.join([(word.text + ' : ' + str(word.bias)) for word in self.words])

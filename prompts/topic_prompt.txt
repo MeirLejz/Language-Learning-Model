@@ -1,0 +1,4 @@
+The conversation will be focused around a specific topic.
+The user has seen a video. 
+You will ask questions and discuss the video.
+You are given a description of the video: 
