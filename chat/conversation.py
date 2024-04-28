@@ -9,7 +9,6 @@ class Conversation():
         
         self.max_history_length = max_history_length
         self.file_manager = file_manager
-        self.conversation = deque() # system prompt + messages
         self.messages = deque() # messages only
         
         if reset:
@@ -20,7 +19,9 @@ class Conversation():
                 self.messages.append(message)
 
     def __call__(self):
-        return [self.system_message(), list(self.messages)]
+        res = self.messages.copy()
+        res.appendleft(self.system_message())
+        return list(res)
     
     def add_message(self, message: Message):
         self.messages.append(message())

@@ -5,6 +5,17 @@ class OpenaiAPIWrapper():
     def __init__(self):
         self.client = OpenAI()
         
+    def create_audio_transcription(self, audio_file_path: str, model: str="whisper-1", response_format: str="text") -> str:
+        
+        with open(audio_file_path, "rb") as file:
+            transcription = self.client.audio.transcriptions.create(
+                model=model,
+                file=file,
+                response_format=response_format
+            )
+        
+        return transcription
+    
     def create_chat_completion(self, model: str, messages: list, max_tokens: int=200) -> str:
         
         completion = self.client.chat.completions.create(
@@ -37,7 +48,5 @@ class OpenaiAPIWrapper():
             else:
                 print("\n")
 
-        words = [word.strip("`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'") for word in message_content.split() if word.strip() not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'"]
-
-        return words, message_content
+        return message_content
         
