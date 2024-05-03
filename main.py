@@ -10,10 +10,8 @@ from api.openaiAPI import OpenaiAPIWrapper
 
 from vocabulary.vocabulary import Vocabulary
 
-import argparse as ap
-import os
+import argparse as ap, os, pdb, json
 
-# TODO: implement text to keywords model to add vocabulary from topic summary
 # TODO: implement video frames addition to audio transcription for improved topic summary
 
 MAX_TOKENS = 50
@@ -27,41 +25,27 @@ TOPIC_SUMMARY_PATH = "prompts/topic_summary.txt"
 
 def main():
     
-    parser = ap.ArgumentParser(description="Speakit")
+    parser = ap.ArgumentParser(description="Tsabar")
     parser.add_argument("-m", "--model", type=str, default="gpt-3.5-turbo")
     parser.add_argument("-r", "--reset", action="store_true")
     parser.add_argument("-t", "--topic", type=str, default=None)
     args = vars(parser.parse_args())
 
-    openAPI = OpenaiAPIWrapper()
+    system_prompt = open(SYSTEM_PROMPT_PATH, "r").read()
+    topic_prompt = open(TOPIC_PROMPT_PATH, "r").read()
+    
+    openAPI = OpenaiAPIWrapper(model=args['model'])
     vocab_file_manager = VocabularyFileManager(file_path=VOCABULARY_PATH)
     conv_file_manager = ConversationFileManager(file_path=CONVERSATION_PATH)
-    vocabulary = Vocabulary(file_manager=vocab_file_manager, 
-                            reset=args['reset'])
-    
-    system_prompt = open(SYSTEM_PROMPT_PATH, "r").read()
+    vocabulary = Vocabulary(file_manager=vocab_file_manager, reset=args['reset'])
 
     if args['topic'] is not None:
-        if os.path.exists(TOPIC_SUMMARY_PATH):
-            print("[INFO] Topic summary already exists.")
-            with open(TOPIC_SUMMARY_PATH, "r") as f:
-                summary = f.read()
-        else:
-            topic_prompt = open(TOPIC_PROMPT_PATH, "r").read()
-            topic = Topic(args['topic'])
-            audio_path = topic.download_audio()
-            print("[INFO] Creating audio transcription...")
-            video_transcription = openAPI.create_audio_transcription(audio_file_path=audio_path)
-            params = topic.prepare_summary_request(transcription=video_transcription)
-            print("[INFO] Generating video summary...")
-            summary = openAPI.create_chat_completion(model=args['model'], messages=params['messages'], max_tokens=MAX_TOKENS_DESCRIPTION)
-            print("[INFO] Video summary generated.")
-            with open(TOPIC_SUMMARY_PATH, "w") as f:
-                f.write(summary)
         
-        system_prompt += topic_prompt + summary
-        print(f'System prompt: {system_prompt}')
-        vocabulary.add_word(message_content=summary)
+        print("[INFO] Topic provided.")
+        topic = Topic(video_path=args['topic'], topic_summary_path=TOPIC_SUMMARY_PATH, summary_length=MAX_TOKENS_DESCRIPTION)
+        topic_summary, keywords = topic.handle_topic()
+        vocabulary.add_words(words=keywords)
+        system_prompt += topic_prompt + topic_summary
 
     conversation = Conversation(system_message_content=system_prompt, 
                                 file_manager=conv_file_manager, 

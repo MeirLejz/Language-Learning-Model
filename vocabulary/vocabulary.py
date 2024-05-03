@@ -35,6 +35,16 @@ class Vocabulary:
             self.words.append(word)
             self.file_manager.save_object(word)
 
+    def add_words(self, words: list[str]) -> None:
+        words = [word.strip("`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'") for word in words if word.strip() not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|\"'"]
+        words = [unidecode(word.lower().strip()) for word in words]
+        for word in words:
+            if word not in [word.text for word in self.words] and word != "" and word not in "`!¡@#$%^&*()_+-=,./<>¿?;:[]|'":
+                word = Word(word, self.initial_bias)
+                self.words.append(word)
+                self.file_manager.save_object(word)
+
+
     def to_readable_format(self) -> str:
         return '\n'.join([(word.text + ' : ' + str(word.bias)) for word in self.words])
 

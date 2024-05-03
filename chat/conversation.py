@@ -30,4 +30,4 @@ class Conversation():
         self.file_manager.save_object(message)
 
     def __str__(self):
-        return "\n".join([str(message) for message in self.history])
+        return "\n".join([str(message) for message in self.messages])

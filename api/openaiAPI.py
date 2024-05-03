@@ -2,8 +2,9 @@ from openai import OpenAI
 
 class OpenaiAPIWrapper():
     
-    def __init__(self):
+    def __init__(self, model: str="gpt-3.5-turbo"):
         self.client = OpenAI()
+        self.model = model
         
     def create_audio_transcription(self, audio_file_path: str, model: str="whisper-1", response_format: str="text") -> str:
         
@@ -16,12 +17,13 @@ class OpenaiAPIWrapper():
         
         return transcription
     
-    def create_chat_completion(self, model: str, messages: list, max_tokens: int=200) -> str:
+    def create_chat_completion(self, model: str, messages: list, max_tokens: int=200, response_format: dict={ "type": "text" }) -> str:
         
         completion = self.client.chat.completions.create(
             model=model,
             messages=messages,
-            max_tokens=max_tokens
+            max_tokens=max_tokens,
+            response_format=response_format
         )
 
         return completion.choices[0].message.content
