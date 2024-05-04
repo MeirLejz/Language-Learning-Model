@@ -10,7 +10,7 @@ from api.openaiAPI import OpenaiAPIWrapper
 
 from vocabulary.vocabulary import Vocabulary
 
-import argparse as ap, os, pdb, json
+import argparse as ap
 
 # TODO: implement video frames addition to audio transcription for improved topic summary
 
@@ -20,32 +20,43 @@ VOCABULARY_PATH = "output/vocabulary.txt"
 CONVERSATION_PATH = "output/messages.txt"
 SYSTEM_PROMPT_PATH = "prompts/system_prompt.txt"
 TOPIC_PROMPT_PATH = "prompts/topic_prompt.txt"
-TOPIC_SUMMARY_PATH = "prompts/topic_summary.txt"
-
+TOPIC_SUMMARY_PATH = "output/topic_summary.txt"
 
 def main():
     
+    # parsing arguments
     parser = ap.ArgumentParser(description="Tsabar")
     parser.add_argument("-m", "--model", type=str, default="gpt-3.5-turbo")
     parser.add_argument("-r", "--reset", action="store_true")
     parser.add_argument("-t", "--topic", type=str, default=None)
     args = vars(parser.parse_args())
 
+    # loading system prompts
     system_prompt = open(SYSTEM_PROMPT_PATH, "r").read()
-    topic_prompt = open(TOPIC_PROMPT_PATH, "r").read()
     
+    # objects construction
     openAPI = OpenaiAPIWrapper(model=args['model'])
     vocab_file_manager = VocabularyFileManager(file_path=VOCABULARY_PATH)
     conv_file_manager = ConversationFileManager(file_path=CONVERSATION_PATH)
     vocabulary = Vocabulary(file_manager=vocab_file_manager, reset=args['reset'])
 
+    # handling topic
     if args['topic'] is not None:
-        
         print("[INFO] Topic provided.")
+            
         topic = Topic(video_path=args['topic'], topic_summary_path=TOPIC_SUMMARY_PATH, summary_length=MAX_TOKENS_DESCRIPTION)
-        topic_summary, keywords = topic.handle_topic()
-        vocabulary.add_words(words=keywords)
-        system_prompt += topic_prompt + topic_summary
+        
+        # return topic summary (includes vocabulary from transcript) 
+        # and keywords as list
+        topic_summary, keywords_str, keywords_list = topic.handle_topic() 
+
+        vocabulary.add_words(words=keywords_list)
+        
+        topic_prompt = open(TOPIC_PROMPT_PATH, "r").read() # load topic prompt
+    
+        system_prompt += '\n' + topic_prompt + '\n' + topic_summary + '\n' + 'Try to use in the conversation the following keywords from the video: ' + keywords_str
+
+    print(f'[DEBUG] system_prompt: {system_prompt}')
 
     conversation = Conversation(system_message_content=system_prompt, 
                                 file_manager=conv_file_manager, 
@@ -67,5 +78,8 @@ def main():
 
         conversation.add_message(Message(role="assistant", content=message_content))
         
+        print('[DEBUG] conversation: ', str(conversation))
+        print('[DEBUG] vocabulary: ', vocabulary.to_readable_format())
+
 if __name__ == "__main__":
     main()

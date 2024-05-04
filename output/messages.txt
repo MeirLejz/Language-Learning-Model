@@ -1,22 +1,16 @@
-{"role": "user", "content": "hola"}
-{"role": "assistant", "content": "\u00a1Hola! \u00bfC\u00f3mo est\u00e1s hoy?"}
-{"role": "user", "content": "soy bien!"}
-{"role": "assistant", "content": "Me alegra escuchar eso. \u00bfHay algo en particular que te gustar\u00eda practicar hoy en espa\u00f1ol?"}
-{"role": "user", "content": "el vocabulario"}
-{"role": "assistant", "content": "\u00a1Perfecto! \u00bfQu\u00e9 tema te gustar\u00eda aprender hoy? Podemos hablar sobre animales, comida, viajes, o cualquier otro tema que"}
-{"role": "user", "content": "quiero hablar sobre animales"}
-{"role": "assistant", "content": "\u00a1Genial! \u00bfQu\u00e9 animal te interesa m\u00e1s? Podemos hablar sobre mam\u00edferos, aves, reptiles, \u00a1cual"}
-{"role": "user", "content": "hola!"}
-{"role": "assistant", "content": "\u00a1Hola! \u00bfC\u00f3mo est\u00e1s? Cu\u00e9ntame un poco sobre tu d\u00eda."}
-{"role": "user", "content": "soy bien y tu ?"}
-{"role": "assistant", "content": "\u00a1Me alegro de escuchar eso! Yo tambi\u00e9n estoy bien, gracias. \u00bfViste alg\u00fan video interesante \u00faltimamente?"}
-{"role": "user", "content": "si! visito un video de espanol"}
-{"role": "assistant", "content": "\u00a1Qu\u00e9 genial! \u00bfDe qu\u00e9 se trataba el video en espa\u00f1ol que viste? \u00bfAprendiste algo nuevo?"}
-{"role": "user", "content": "aprendisto que se dices hasta luego"}
-{"role": "assistant", "content": "\u00a1Excelente! \"Hasta luego\" es una forma educada de despedirse. \u00bfQu\u00e9 m\u00e1s aprendiste del video en espa\u00f1ol que v"}
-{"role": "user", "content": "que es desperdirse?"}
-{"role": "assistant", "content": "\"Despedirse\" significa decir adi\u00f3s o decir una palabra amable al final de una conversaci\u00f3n antes de separarse. \u00bfTe gust"}
-{"role": "user", "content": "por supesto!"}
-{"role": "assistant", "content": "\u00a1Me alegra que est\u00e9s aprendiendo! \u00bfQu\u00e9 otra palabra te gustar\u00eda saber en espa\u00f1ol?"}
-{"role": "user", "content": "to eat"}
-{"role": "assistant", "content": "\"Comer\" significa \"to eat\" en ingl\u00e9s. \u00bfHas probado alguna comida nueva recientemente?"}
+{"role": "user", "content": "hola como estas"}
+{"role": "assistant", "content": "\u00a1Hola! Estoy bien, \u00bfy t\u00fa?"}
+{"role": "user", "content": "soy muy bien, dicame cosa en espanol"}
+{"role": "assistant", "content": "\u00bfQu\u00e9 te gustar\u00eda que te diga?"}
+{"role": "user", "content": "digame vamos a comer"}
+{"role": "assistant", "content": "\u00a1Vamos a comer! (Let's eat)"}
+{"role": "user", "content": "perfectamente!"}
+{"role": "assistant", "content": "\u00bfTe gustar\u00eda aprender m\u00e1s palabras en espa\u00f1ol?"}
+{"role": "user", "content": "si"}
+{"role": "assistant", "content": "Excelente, \u00bfqu\u00e9 tipo de palabras te gustar\u00eda aprender hoy?"}
+{"role": "user", "content": "comida"}
+{"role": "assistant", "content": "\u00a1Claro! Empecemos. \u00bfConoces la palabra \"sopa\"?"}
+{"role": "user", "content": "no, que es"}
+{"role": "assistant", "content": "La sopa es un plato l\u00edquido que se suele servir caliente, \u00bfqueda claro?"}
+{"role": "user", "content": "aaaah me gusto la sopa"}
+{"role": "assistant", "content": "\u00a1Qu\u00e9 bueno que te guste la sopa! \u00bfConoces el plato llamado \"ensalada\"?"}

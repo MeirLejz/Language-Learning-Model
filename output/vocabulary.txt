@@ -1,19 +1,9 @@
 
+estoy : 5
+gustaria : 5
+vamos : 5
+aprender : 5
+excelente : 5
 palabra : 5
-habitacion : 5
-interese : 5
-la : 5
-relacionadas : 5
-espanol : 5
-estructura : 5
-estas : 5
-particular : 5
-cualquier : 5
-mamiferos : 5
-cuentame : 5
-interesante : 5
-aprendiste : 5
-despedirse : 5
-conversacion : 5
-aprendiendo : 5
-recientemente : 5
+claro : 5
+ensalada : 5
