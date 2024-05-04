@@ -16,11 +16,17 @@ import argparse as ap
 
 MAX_TOKENS = 50
 MAX_TOKENS_DESCRIPTION = 200
+
+# output paths
 VOCABULARY_PATH = "output/vocabulary.txt"
 CONVERSATION_PATH = "output/messages.txt"
+TOPIC_SUMMARY_PATH = "output/topic_summary.txt"
+AUDIO_PATH = "output/audio.mp4"
+
+# prompts paths
 SYSTEM_PROMPT_PATH = "prompts/system_prompt.txt"
 TOPIC_PROMPT_PATH = "prompts/topic_prompt.txt"
-TOPIC_SUMMARY_PATH = "output/topic_summary.txt"
+
 
 def main():
     
@@ -44,7 +50,7 @@ def main():
     if args['topic'] is not None:
         print("[INFO] Topic provided.")
             
-        topic = Topic(video_path=args['topic'], topic_summary_path=TOPIC_SUMMARY_PATH, summary_length=MAX_TOKENS_DESCRIPTION)
+        topic = Topic(video_path=args['topic'], topic_summary_path=TOPIC_SUMMARY_PATH, audio_path=AUDIO_PATH, summary_length=MAX_TOKENS_DESCRIPTION)
         
         # return topic summary (includes vocabulary from transcript) 
         # and keywords as list

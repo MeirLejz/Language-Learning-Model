@@ -7,11 +7,13 @@ class Topic:
     def __init__(self, 
                  video_path: str, 
                  topic_summary_path: str, 
+                 audio_path: str,
                  summary_length: int, 
                  openaiAPI: OpenaiAPIWrapper=OpenaiAPIWrapper()):
         
         self.video_path = video_path
         self.topic_summary_path = topic_summary_path
+        self.audio_path = audio_path
         self.summary_length = summary_length
         self.openaiAPI = openaiAPI
 
@@ -50,6 +52,12 @@ class Topic:
 
             with open(self.topic_summary_path, "w") as f:
                 f.write("")
+
+        if os.path.exists(self.audio_path):
+                
+                print("[INFO] An audio file already exists, deleting it.")
+    
+                os.remove(self.audio_path)
     
         audio_path = self.download_audio()
         
