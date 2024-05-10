@@ -41,7 +41,7 @@ def main():
     system_prompt = open(SYSTEM_PROMPT_PATH, "r").read()
     
     # objects construction
-    openAPI = OpenaiAPIWrapper(model=args['model'])
+    openAPI = OpenaiAPIWrapper()
     vocab_file_manager = VocabularyFileManager(file_path=VOCABULARY_PATH)
     conv_file_manager = ConversationFileManager(file_path=CONVERSATION_PATH)
     vocabulary = Vocabulary(file_manager=vocab_file_manager, reset=args['reset'])
