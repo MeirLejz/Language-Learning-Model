@@ -85,7 +85,7 @@ def main():
         conversation.add_message(Message(role="assistant", content=message_content))
         
         print('[DEBUG] conversation: ', str(conversation))
-        print('[DEBUG] vocabulary: ', vocabulary.to_readable_format())
+        print('[DEBUG] vocabulary: ', str(vocabulary))
 
 if __name__ == "__main__":
     main()

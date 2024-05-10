@@ -1,10 +1,11 @@
 from api.encoder import Encoder
+from dataclasses import dataclass
 
+@dataclass
 class Word:
-    def __init__(self, text: str, logit_bias: float = 5.0, encoder: Encoder = Encoder()):
-        self.text = text
-        self.bias = logit_bias
-        self.encoder = encoder
+    text: str
+    bias: float = 5.0
+    encoder: Encoder = Encoder()
 
     def encode(self):
         return self.encoder.encode(self.text)

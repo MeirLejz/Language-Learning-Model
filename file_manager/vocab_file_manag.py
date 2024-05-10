@@ -20,6 +20,7 @@ class VocabularyFileManager(FileManager):
                     words.append(Word(text=word.strip(), logit_bias=int(bias)))
         return words
     
-    def reset_file(self) -> None:
+    def reset_file(self) -> list[Word]:
         with open(self.file_path, "w") as f:
             f.write("")
+        return [] 
