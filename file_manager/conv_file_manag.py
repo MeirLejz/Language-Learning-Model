@@ -8,12 +8,15 @@ class ConversationFileManager(FileManager):
     def __init__(self, file_path: str):
         super().__init__(file_path)
 
-    def save_object(self, message: Message) -> None:     
+    def save_object(self, message: Message) -> None:   
+        """Save a message object to the file."""  
         with open(self.file_path, mode='a') as file:
-            json.dump(message(), file)
+            json.dump(message(), file) # message.__call__() returns a dictionary
             file.write('\n')
     
-    def load_object_list(self, context_len: int = 5) -> list[dict]:    
+    def load_object_list(self, context_len: int = 5) -> list[dict]: 
+        """Load only recent history from conversation file.
+        Goal is to save tokens when calling API"""   
         messages = []
         
         with open(self.file_path, mode='r') as file:
@@ -24,6 +27,7 @@ class ConversationFileManager(FileManager):
 
         return messages
     
-    def reset_file(self) -> None:
+    def reset_file(self) -> list:
         with open(self.file_path, 'w') as f:
             f.write("")
+        return []

@@ -18,7 +18,7 @@ class FileManager(ABC):
         pass
     
     @abstractmethod
-    def reset_file(self) -> None:
+    def reset_file(self) -> list:
         pass
 
         
