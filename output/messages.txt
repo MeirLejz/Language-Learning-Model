@@ -1,16 +1,2 @@
-{"role": "user", "content": "hola como estas"}
-{"role": "assistant", "content": "\u00a1Hola! Estoy bien, \u00bfy t\u00fa?"}
-{"role": "user", "content": "soy muy bien, dicame cosa en espanol"}
-{"role": "assistant", "content": "\u00bfQu\u00e9 te gustar\u00eda que te diga?"}
-{"role": "user", "content": "digame vamos a comer"}
-{"role": "assistant", "content": "\u00a1Vamos a comer! (Let's eat)"}
-{"role": "user", "content": "perfectamente!"}
-{"role": "assistant", "content": "\u00bfTe gustar\u00eda aprender m\u00e1s palabras en espa\u00f1ol?"}
-{"role": "user", "content": "si"}
-{"role": "assistant", "content": "Excelente, \u00bfqu\u00e9 tipo de palabras te gustar\u00eda aprender hoy?"}
-{"role": "user", "content": "comida"}
-{"role": "assistant", "content": "\u00a1Claro! Empecemos. \u00bfConoces la palabra \"sopa\"?"}
-{"role": "user", "content": "no, que es"}
-{"role": "assistant", "content": "La sopa es un plato l\u00edquido que se suele servir caliente, \u00bfqueda claro?"}
-{"role": "user", "content": "aaaah me gusto la sopa"}
-{"role": "assistant", "content": "\u00a1Qu\u00e9 bueno que te guste la sopa! \u00bfConoces el plato llamado \"ensalada\"?"}
+{"role": "user", "content": "\u05e9\u05dc\u05d5\u05dd \u05de\u05d4 \u05e0\u05e9\u05de\u05e2"}
+{"role": "assistant", "content": "\u05e9\u05dc\u05d5\u05dd! \u05d0\u05d9\u05da \u05d0\u05ea\u05d4? \u05e8\u05d0\u05d9\u05ea\u05d9 \u05e1\u05e8\u05d8\u05d5\u05df \u05de\u05e2\u05e0\u05d9\u05d9\u05df \u05e2\u05dc \u05e7\u05e0\u05d9\u05d9\u05ea \u05e1\u05e4\u05e8 \u05d1\u05d7\u05e0\u05d5\u05ea"}

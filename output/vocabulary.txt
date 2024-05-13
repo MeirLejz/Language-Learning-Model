@@ -1,9 +1,7 @@
 
-estoy : 5
-gustaria : 5
-vamos : 5
-aprender : 5
-excelente : 5
-palabra : 5
-claro : 5
-ensalada : 5
+spr : 5.0
+KHbrym : 5.0
+KHnvt : 5.0
+zmn : 5.0
+`bvdh : 5.0
+m`nyyn : 5.0

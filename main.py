@@ -1,16 +1,21 @@
-from file_manager.vocab_file_manag import VocabularyFileManager
-from file_manager.conv_file_manag import ConversationFileManager
+from src.backend.file_manager.vocab_file_manag import VocabularyFileManager
+from src.backend.file_manager.conv_file_manag import ConversationFileManager
 
-from chat.conversation import Conversation
-from chat.message import Message
+from src.backend.chat.conversation import Conversation
+from src.backend.chat.message import Message
 
-from topics.topic import Topic
+from src.backend.topics.topic import Topic
 
-from api.openaiAPI import OpenaiAPIWrapper
+from src.backend.api.openaiAPI import OpenaiAPIWrapper
 
-from vocabulary.vocabulary import Vocabulary
+from src.backend.vocabulary.vocabulary import Vocabulary
+
+from backend import app
 
 import argparse as ap
+
+import uvicorn
+
 
 # TODO: implement video frames addition to audio transcription for improved topic summary
 
@@ -62,12 +67,12 @@ def main():
     
         system_prompt += '\n' + topic_prompt + '\n' + topic_summary + '\n' + 'Try to use in the conversation the following keywords from the video: ' + keywords_str
 
-    print(f'[DEBUG] system_prompt: {system_prompt}')
-
     conversation = Conversation(system_message_content=system_prompt, 
                                 file_manager=conv_file_manager, 
                                 reset=args['reset'], 
                                 max_history_length=5)
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
     while True:
         

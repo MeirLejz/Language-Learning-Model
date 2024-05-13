@@ -17,7 +17,7 @@ class VocabularyFileManager(FileManager):
             for line in f:
                 if line != "\n":
                     word, bias = line.split(":")
-                    words.append(Word(text=word.strip(), logit_bias=int(bias)))
+                    words.append(Word(text=word.strip(), bias=int(bias)))
         return words
     
     def reset_file(self) -> list[Word]:

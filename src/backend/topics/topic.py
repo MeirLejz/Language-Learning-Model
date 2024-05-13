@@ -64,7 +64,7 @@ class Topic:
 
     def __create_topic_summary(self, transcript: str) -> str:
         params_summary = self.__prepare_summary_request(transcription=transcript)
-        summary = self.__openaiAPI.create_chat_completion(model=self.__openaiAPI.model, messages=params_summary['messages'], max_tokens=self.summary_length)
+        summary = self.__openaiAPI.create_chat_completion(model="gpt-3.5-turbo", messages=params_summary['messages'], max_tokens=self.summary_length)
         with open(self.topic_summary_path, "w") as f:
             f.write(summary)  
         return summary

@@ -1,0 +1,35 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLH</title>
+</head>
+<body>
+    <h1>Learn Hebrew with chatGPT</h1>
+    <div id="app">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+        <div id="messageContainer"></div>
+    </div>
+
+    <script>
+        const socket = new WebSocket("ws://127.0.0.1:8000/ws");
+
+        socket.onmessage = function(event) {
+            const messageContainer = document.getElementById("messageContainer");
+            const messageElement = document.createElement("div");
+            messageElement.innerText = event.data;
+            messageContainer.appendChild(messageElement);
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const message = messageInput.value;
+            socket.send(message);
+            messageInput.value = ""; // Clear input field after sending
+        }
+    </script>
+</body>
+</html>
